@@ -209,8 +209,8 @@ if __name__ == "__main__":
         from sklearn.manifold import TSNE
         tsne_data_path = os.path.join(".", "results", f"tsne_{args.con_fname}.npy")
         if not os.path.exists(tsne_data_path):
-            X = utils.encodeMSTAR(model_fpath, use_phase=True)
-            tsne_embedded_data = TSNE(n_components=2, init='pca', learning_rate='auto').fit_transform(X)
+            X1 = np.copy(X)
+            tsne_embedded_data = TSNE(n_components=2, init='pca', learning_rate='auto').fit_transform(X1)
             np.save(tsne_data_path, tsne_embedded_data)
             print(f"tSNE embedding data saved to {tsne_data_path}")
         else:
@@ -247,7 +247,7 @@ if __name__ == "__main__":
         import umap
         umap_data_path = os.path.join(".", "results", f"umap_{args.con_fname}.npy")
         if not os.path.exists(tsne_data_path):
-            X = utils.encodeMSTAR(model_fpath, use_phase=True)
+            X2 = np.copy(X)
             reducer = umap.UMAP(n_neighbors = n_neighbors)
             umap_embedded_data = reducer.fit_transform(encoded_data)
             np.save(umap_embedded_data, umap_embedded_data)
