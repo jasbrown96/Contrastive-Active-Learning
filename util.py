@@ -4,6 +4,8 @@ import math
 import numpy as np
 import torch
 import torch.optim as optim
+import os
+import glob
 
 
 class TwoCropTransform:
@@ -98,11 +100,11 @@ def save_model(model, optimizer, opt, epoch, save_file):
 ###Loading MSTAR Data
 
 
-def load_MSTAR(root_dir = '../Data'):
+def load_MSTAR(root_dir = './Data'):
     """Loads MSTAR Data
     Parameters
     ----------
-    root_dir : Root directory (default is ../Data)
+    root_dir : Root directory (default is ./Data)
     Returns
     -------
     hdr : header data
