@@ -145,8 +145,6 @@ if __name__ == "__main__":
         evals, evecs = evals.real, evecs.real
         evals, evecs = evals[1:], evecs[:,1:]  # we will ignore the first eigenvalue/vector
 
-
-
         # Also compute normalized graph laplacian eigenvectors for use in some GraphLearning graph_ssl functions (e.g. "mbo")
         n = W.shape[0]
         G = gl.graph(W)
@@ -245,29 +243,30 @@ if __name__ == "__main__":
 
     if args.umap:
         import umap
+        n_neighbors = 15
         umap_data_path = os.path.join(".", "results", f"umap_{args.con_fname}.npy")
-        if not os.path.exists(tsne_data_path):
+        if not os.path.exists(umap_data_path):
             X2 = np.copy(X)
             reducer = umap.UMAP(n_neighbors = n_neighbors)
             umap_embedded_data = reducer.fit_transform(encoded_data)
-            np.save(umap_embedded_data, umap_embedded_data)
-            print(f"umap embedding data saved to {umap_embedded_data}")
+            np.save(umap_data_path, umap_embedded_data)
+            print(f"umap embedding data saved to {umap_data_path}")
         else:
-            print(f"Found saved umap embedding at {umap_embedded_data}")
-            tsne_embedded_data = np.load(tsne_data_path)
+            print(f"Found saved umap embedding at {umap_data_path}")
+            umap_embedded_data = np.load(umap_data_path)
 
         # Plot the t-SNE embedding of MSTAR, if not already exist
         if not os.path.exists(os.path.join(".", "results", f"umap_{args.con_fname}.png")):
             plt.figure()
             plt.scatter(umap_embedded_data[:,0], umap_embedded_data[:,1], c=labels, s=.5)
-            plt.title("t-SNE Embedding of MSTAR Data")
+            plt.title("UMAP Embedding of MSTAR Data")
             plt.savefig(os.path.join(".", "results", f"umap_{args.con_fname}.png"))
 
             # Visualize the train/test split with the t-SNE Embedding
             plt.figure()
             plt.scatter(umap_embedded_data[train_idx_all,0], umap_embedded_data[train_idx_all,1], c = 'blue', label = "Train points", s=.5)
             plt.scatter(umap_embedded_data[test_mask,0], umap_embedded_data[test_mask,1], c = 'red', label = "Test points", s=.5)
-            plt.title("t-SNE Embedding of Train Test Split")
+            plt.title("UMAP Embedding of Train Test Split")
             plt.legend()
             plt.savefig(os.path.join(".", "results", f"umap_{args.con_fname}_train_test.png"))
 
