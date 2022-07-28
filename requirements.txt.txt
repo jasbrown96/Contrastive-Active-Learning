@@ -1,0 +1,12 @@
+numpy
+scipy
+graphlearning
+annoy
+sklearn
+matplotlib
+torch
+torchvision
+pandas
+tqdm
+umap-learn
+tensorboard-logger
