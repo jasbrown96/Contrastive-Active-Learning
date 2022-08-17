@@ -258,7 +258,7 @@ def train(train_loader, model, criterion, optimizer, epoch, opt):
         features = torch.cat([f1.unsqueeze(1), f2.unsqueeze(1)], dim=1)
         #if opt.method == 'SupCon':
     #        loss = criterion(features, labels)
-        elif opt.method == 'SimCLR':
+        if opt.method == 'SimCLR':
             loss = criterion(features)
         else:
             raise ValueError('contrastive method not supported: {}'.
