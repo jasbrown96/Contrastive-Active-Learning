@@ -110,7 +110,7 @@ if __name__ == "__main__":
           else:
               encoded_data = np.vstack((encoded_data,model.encoder(data_batch.to(device)).cpu().numpy()))
 
-
+    X = encoded_data
 
     # Define and make results filepath
     results_fpath = args.con_fname + f"_{args.algorithm}_{args.knn}_{args.M}_{args.gamma}_{args.seed}_{args.num_per_class}_{args.iters}_{args.by_class}"
@@ -208,7 +208,7 @@ if __name__ == "__main__":
         tsne_data_path = os.path.join(".", "results", f"tsne_{args.con_fname}.npy")
         if not os.path.exists(tsne_data_path):
             X1 = np.copy(X)
-            tsne_embedded_data = TSNE(n_components=2, init='pca', learning_rate='auto').fit_transform(X1)
+            tsne_embedded_data = TSNE(n_components=2, init='pca').fit_transform(X1) #learning_rate = 'auto'
             np.save(tsne_data_path, tsne_embedded_data)
             print(f"tSNE embedding data saved to {tsne_data_path}")
         else:
