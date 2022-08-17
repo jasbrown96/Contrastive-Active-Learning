@@ -216,7 +216,7 @@ if __name__ == "__main__":
             tsne_embedded_data = np.load(tsne_data_path)
 
         # Plot the t-SNE embedding of MSTAR, if not already exist
-        if not os.path.exists(os.path.join("..", "results", f"tsne_{args.con_fname}.png")):
+        if not os.path.exists(os.path.join(".", "results", f"tsne_{args.con_fname}.png")):
             plt.figure()
             plt.scatter(tsne_embedded_data[:,0], tsne_embedded_data[:,1], c=labels, s=.5)
             plt.title("t-SNE Embedding of MSTAR Data")
@@ -228,7 +228,7 @@ if __name__ == "__main__":
             plt.scatter(tsne_embedded_data[test_mask,0], tsne_embedded_data[test_mask,1], c = 'red', label = "Test points", s=.5)
             plt.title("t-SNE Embedding of Train Test Split")
             plt.legend()
-            plt.savefig(os.path.join("..", "results", f"tsne_{args.con_fname}_train_test.png"))
+            plt.savefig(os.path.join(".", "results", f"tsne_{args.con_fname}_train_test.png"))
 
 
         # Visualize the points queried by each active learning method for this test
