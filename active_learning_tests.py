@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
     data = torch.from_numpy(data).float()
 
-    resize_t = T.Resize(32)
+    resize_t = T.Resize(32, antialias= None)
     data = resize_t(data)
 
 
